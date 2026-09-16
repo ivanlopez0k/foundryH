@@ -1,0 +1,22 @@
+{
+  "schema": "foundry/v0",
+  "core": "gentle-ai@2.7.0",
+  "packs": {
+    "stack": "erp-dotnet-angular@0.1.0",
+    "team": "team-4@0.1.0",
+    "budget": "single-pr@0.1.0"
+  },
+  "stackDetails": {
+    "codegraph": "required",
+    "verification": ["dotnet test", "ng test", "ng lint"],
+    "reviewFocus": ["risk", "resilience"],
+    "notes": "extra care on migrations"
+  },
+  "teamDetails": {
+    "size": 4,
+    "mode": "single-writer",
+    "strategy": "small-prs-to-main"
+  },
+  "overrides": {},
+  "init": { "stackQuestion": "erp-dotnet-angular", "teamSize": 4, "versioned": true }
+}

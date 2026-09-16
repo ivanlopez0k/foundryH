@@ -1,0 +1,22 @@
+{
+  "schema": "foundry/v0",
+  "core": "gentle-ai@2.7.0",
+  "packs": {
+    "stack": "lightweight-generic@0.1.0",
+    "team": "team-4@0.1.0",
+    "budget": "single-pr@0.1.0"
+  },
+  "stackDetails": {
+    "codegraph": "optional",
+    "verification": ["npm test", "npm run lint"],
+    "reviewFocus": ["readability", "reliability"],
+    "notes": "keep verification fast and lightweight"
+  },
+  "teamDetails": {
+    "size": 4,
+    "mode": "single-writer",
+    "strategy": "small-prs-to-main"
+  },
+  "overrides": {},
+  "init": { "stackQuestion": "lightweight-generic", "teamSize": 4, "versioned": true }
+}
