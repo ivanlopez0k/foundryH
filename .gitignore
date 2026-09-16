@@ -1,0 +1,16 @@
+# OS
+Thumbs.db
+.DS_Store
+
+# Secrets (nunca commitear)
+.env
+.env.*
+
+# Logs
+*.log
+
+# Dependencias (si el harness suma tooling a futuro)
+node_modules/
+
+# Caches locales
+.opencode/.cache/
