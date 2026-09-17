@@ -1,0 +1,69 @@
+# openspec/config.yaml — FoundryH SDD bootstrap (sdd-init, 2026-09-17)
+# Hybrid artifact store: this file is the shareable trail; Engram mirrors it.
+# Foundry declaration of record: foundry.json (schema foundry/v0, core gentle-ai@2.7.0).
+schema: spec-driven
+
+context: |
+  Harness repo, not a runnable codebase: foundry.json + foundry.schema.json + examples + docs.
+  Reference instance pinned: erp-dotnet-angular (CodeGraph required, dotnet test + ng test/lint).
+  Lightweight reference: lightweight-generic example (npm test + npm run lint, CodeGraph optional).
+  Team default: size 4, single-writer, small-prs-to-main. Budget: single-pr, ERP forecast required.
+  Conventions: conventional-commits, artifact language en, 400-line RDD core limit (immutable, not re-declared).
+
+rules:
+  proposal:
+    - State which pack instance (ERP exigent or lightweight) the change targets.
+    - Include rollback plan for risky changes.
+  specs:
+    - Use Given/When/Then for scenarios.
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY).
+    - Additive-only schema evolution: v0 readers MUST ignore unknown keys.
+  design:
+    - Document architecture decisions with rationale.
+    - Overrides may only harden defaults; loosening REQUIRES an exceptionId.
+  tasks:
+    - Group by phase, use hierarchical numbering.
+    - Keep tasks completable in one session.
+  apply:
+    guidelines:
+      - Follow existing declaration patterns in foundry.json and examples.
+      - Never push or mutate remotes; commits only on explicit request.
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas.
+
+# Workspace-level testing capabilities (sdd-init discovery 2026-09-17).
+# Zero runnable projects discovered at the workspace root (bounded scan: root + 2
+# levels, excluding .git/node_modules/build/cache/venvs). No workspace-level test
+# command exists, so strict_tdd is false (no-runner fallback). The verification
+# strings below are foundry pack INTENTS for downstream target repos, not commands
+# this workspace can execute. Do not synthesize a combined workspace runner.
+strict_tdd: false
+projects: []
+testing:
+  - relative_path: "."
+    stack: "harness-declaration (JSON schema + docs, no runtime)"
+    test_command: ""
+    framework: ""
+    layers:
+      unit: null
+      integration: null
+      e2e: null
+    coverage_command: ""
+    linter: ""
+    type_checker: ""
+    formatter: ""
+pack_intents:
+  - pack: "erp-dotnet-angular@0.1.0"
+    verification: ["dotnet test", "ng test", "ng lint"]
+    codegraph: "required"
+    review_focus: ["risk", "resilience"]
+  - pack: "lightweight-generic@0.1.0"
+    verification: ["npm test", "npm run lint"]
+    codegraph: "optional"
+    review_focus: ["readability", "reliability"]

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://foundryh.dev/schemas/foundry-v0.json",
   "title": "foundry/v0",
-  "description": "FoundryH v0 declaration: which immutable core plus versioned packs apply to a repo. Additive-only schema: v0 readers ignore unknown keys. The 400-line review limit is immutable Gentle-AI core (RDD) and is intentionally NOT re-declared here to avoid duplication.",
+  "description": "FoundryH v0 declaration: which immutable core plus versioned packs apply to a repo. Additive-only schema: v0 readers ignore unknown keys. The 400-line review limit is immutable Gentle-AI core (RDD) and is intentionally NOT re-declared here to avoid duplication. Init v0 writes the declared contract from exactly 2 versioned answers (identical re-run or versioned diff); sync is a read-only pinned-pack comparator (harden-only overrides); baseline/v0.1 is a local-only hand-filled counter table with no token totals, no execution at root, no push.",
   "$comment": "OQ resolutions (v0 safe defaults, parked items noted in per-property descriptions): OQ-1 verification flags parked, bare commands assumed CI non-watch; OQ-2 codegraph required=fail with init hint in explore, optional=warn; OQ-3 migrationCare notes are human-only; OQ-4 token model/limits parked until baseline measured, only tokenForecastRequired boolean; OQ-5 reviewFocus[0] maps to review start --focus; OQ-6 overrides exceptionId is free-text, registry TBD; OQ-7 orgDetails optional with safe defaults; OQ-8 team mode single-writer v0 only; OQ-9 budget strategy single-pr v0 only; OQ-10 erp-dotnet-angular is one v0 reference instance, SAP/servicios out of scope and not invented.",
   "type": "object",
   "required": ["schema", "core", "packs", "stackDetails", "teamDetails", "init"],
@@ -64,7 +64,7 @@
           "type": "array",
           "minItems": 1,
           "items": { "type": "string" },
-          "description": "Verification commands in run order. OQ-1: bare command names (e.g. ng test means CI non-watch mode); exact flags parked until CI evidence is gathered."
+          "description": "Verification commands in run order. OQ-1: bare command names (e.g. ng test means CI non-watch mode); exact flags parked until CI evidence is gathered. Sync/baseline intent-not-runner guard: intents are recorded in run order and never executed at the harness root."
         },
         "verificationPolicy": {
           "type": "object",
@@ -154,7 +154,7 @@
     },
     "budgetDetails": {
       "type": "object",
-      "description": "Budget pack details. The 400-line review limit lives in immutable Gentle-AI core (RDD) and is not re-declared here. OQ-4: token model and numeric limits are parked until a baseline is measured.",
+      "description": "Budget pack details. The 400-line review limit lives in immutable Gentle-AI core (RDD) and is not re-declared here. OQ-4: token model and numeric limits are parked until a baseline is measured. Baseline/v0.1 records counters-or-n/a only; token totals are forbidden.",
       "additionalProperties": true,
       "properties": {
         "strategy": {
@@ -170,7 +170,7 @@
     },
     "overrides": {
       "type": "object",
-      "description": "Project-level overrides. Harden-only rule: overrides may only harden defaults; loosening a default requires exceptionId. OQ-6: exceptionId is free-text in v0, registry TBD.",
+      "description": "Project-level overrides. Harden-only rule: overrides may only harden defaults; loosening a default requires exceptionId. OQ-6: exceptionId is free-text in v0, registry TBD. Sync verifies pinned @0.1.0 packs and surfaces drift as diff; loosening without exceptionId fails naming the key.",
       "additionalProperties": true,
       "properties": {
         "exceptionId": {
@@ -181,7 +181,7 @@
     },
     "init": {
       "type": "object",
-      "description": "v0 init answers, fixed and versioned in the repo.",
+      "description": "v0 init answers, fixed and versioned in the repo. Exactly 2 answers (stack selection + team size); re-run with unchanged answers is identical, with changed answers shows a versioned diff requiring confirmation.",
       "required": ["stackQuestion", "teamSize", "versioned"],
       "additionalProperties": true,
       "properties": {
