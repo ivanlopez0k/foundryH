@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foundryh.dev/schemas/foundry-v0.json",
+  "title": "foundry/v0",
+  "description": "FoundryH v0 declaration: which immutable core plus versioned packs apply to a repo. Additive-only schema: v0 readers ignore unknown keys. The 400-line review limit is immutable Gentle-AI core (RDD) and is intentionally NOT re-declared here to avoid duplication.",
+  "$comment": "OQ resolutions (v0 safe defaults, parked items noted in per-property descriptions): OQ-1 verification flags parked, bare commands assumed CI non-watch; OQ-2 codegraph required=fail with init hint in explore, optional=warn; OQ-3 migrationCare notes are human-only; OQ-4 token model/limits parked until baseline measured, only tokenForecastRequired boolean; OQ-5 reviewFocus[0] maps to review start --focus; OQ-6 overrides exceptionId is free-text, registry TBD; OQ-7 orgDetails optional with safe defaults; OQ-8 team mode single-writer v0 only; OQ-9 budget strategy single-pr v0 only; OQ-10 erp-dotnet-angular is one v0 reference instance, SAP/servicios out of scope and not invented.",
+  "type": "object",
+  "required": ["schema", "core", "packs", "stackDetails", "teamDetails", "init"],
+  "additionalProperties": true,
+  "properties": {
+    "schema": {
+      "const": "foundry/v0",
+      "description": "Schema identifier. Fixed to foundry/v0 in v0."
+    },
+    "core": {
+      "const": "gentle-ai@2.7.0",
+      "description": "Immutable core harness version. Never edited per company or project in v0."
+    },
+    "packs": {
+      "type": "object",
+      "description": "Pinned pack versions. All packs pinned at @0.1.0 in v0.",
+      "required": ["stack", "team", "budget"],
+      "additionalProperties": true,
+      "properties": {
+        "stack": {
+          "type": "string",
+          "pattern": "^.+@0\\.1\\.0$",
+          "description": "Stack pack reference. v0 known instances: erp-dotnet-angular@0.1.0 (one exigent reference instance, not all ERPs), lightweight-generic@0.1.0. OQ-10: SAP/servicios out of scope v0, do not invent instances."
+        },
+        "org": {
+          "type": "string",
+          "pattern": "^.+@0\\.1\\.0$",
+          "description": "Optional org policy pack reference. OQ-7: optional in v0; absent means org defaults apply."
+        },
+        "team": {
+          "type": "string",
+          "pattern": "^.+@0\\.1\\.0$",
+          "description": "Team pack reference, pinned @0.1.0 in v0."
+        },
+        "budget": {
+          "type": "string",
+          "pattern": "^.+@0\\.1\\.0$",
+          "description": "Budget pack reference, pinned @0.1.0 in v0. OQ-9: only single-pr strategy exists in v0."
+        }
+      }
+    },
+    "stackDetails": {
+      "type": "object",
+      "description": "Stack pack behavior details.",
+      "required": ["codegraph", "verification", "reviewFocus"],
+      "additionalProperties": true,
+      "properties": {
+        "stack": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Free-form stack tags for routing and readability (e.g. dotnet, angular, sqlserver). OQ-10: informational only in v0, no pack resolution derives from tags."
+        },
+        "codegraph": {
+          "type": "string",
+          "enum": ["required", "optional"],
+          "description": "CodeGraph policy. OQ-2: required means explore fails with an init hint when no index exists; optional means warn and continue without the graph."
+        },
+        "verification": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "description": "Verification commands in run order. OQ-1: bare command names (e.g. ng test means CI non-watch mode); exact flags parked until CI evidence is gathered."
+        },
+        "verificationPolicy": {
+          "type": "object",
+          "description": "Policy around verification execution.",
+          "additionalProperties": true,
+          "properties": {
+            "failFast": {
+              "type": "boolean",
+              "description": "Stop at the first failing verification command when true."
+            }
+          }
+        },
+        "reviewFocus": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": ["risk", "resilience", "readability", "reliability"]
+          },
+          "description": "Ordered review lenses, primary-first. OQ-5: reviewFocus[0] maps to review start --focus."
+        },
+        "migrationCare": {
+          "type": "object",
+          "description": "Extra care for migrations. OQ-3: v0 enforcement is human-only; notes are guidance for the reviewer, not machine gates.",
+          "additionalProperties": true,
+          "properties": {
+            "requireMigrationReview": {
+              "type": "boolean",
+              "description": "When true, migrations require explicit human review before apply."
+            },
+            "notes": {
+              "type": "string",
+              "description": "Human-only migration guidance. OQ-3: not interpreted by tooling in v0."
+            }
+          }
+        },
+        "notes": {
+          "type": "string",
+          "description": "Legacy free-text stack note, kept for foundry/v0 additive compatibility. Prefer migrationCare.notes for new migration guidance."
+        }
+      }
+    },
+    "orgDetails": {
+      "type": "object",
+      "description": "Org policy details. OQ-7: all optional in v0; absent means org defaults apply.",
+      "additionalProperties": true,
+      "properties": {
+        "allowedLanguages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Languages permitted in the repo (e.g. csharp, typescript). OQ-7: optional advisory list in v0, no machine gate."
+        },
+        "commitConvention": {
+          "type": "string",
+          "description": "Commit message convention identifier (e.g. conventional-commits). OQ-7: advisory in v0."
+        },
+        "artifactLanguage": {
+          "type": "string",
+          "enum": ["en", "es"],
+          "default": "en",
+          "description": "Default language for generated artifacts. Defaults to en per the artifact language contract."
+        }
+      }
+    },
+    "teamDetails": {
+      "type": "object",
+      "description": "Team pack behavior details.",
+      "required": ["size", "mode", "strategy"],
+      "additionalProperties": true,
+      "properties": {
+        "size": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Team size in people."
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["single-writer"],
+          "description": "Writer mode. OQ-8: single-writer is the only v0 mode; fixed or rotating modes are parked for v1."
+        },
+        "strategy": {
+          "type": "string",
+          "enum": ["small-prs-to-main"],
+          "description": "Branching strategy. v0 only supports small-prs-to-main."
+        }
+      }
+    },
+    "budgetDetails": {
+      "type": "object",
+      "description": "Budget pack details. The 400-line review limit lives in immutable Gentle-AI core (RDD) and is not re-declared here. OQ-4: token model and numeric limits are parked until a baseline is measured.",
+      "additionalProperties": true,
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": ["single-pr"],
+          "description": "Delivery strategy. OQ-9: single-pr is the only v0 strategy; auto-chain is parked for v1."
+        },
+        "tokenForecastRequired": {
+          "type": "boolean",
+          "description": "OQ-4: when true (ERP exigent default), a token forecast is required before long work; when false (lightweight default), it is skipped. Numeric token model and limits parked until baseline measured."
+        }
+      }
+    },
+    "overrides": {
+      "type": "object",
+      "description": "Project-level overrides. Harden-only rule: overrides may only harden defaults; loosening a default requires exceptionId. OQ-6: exceptionId is free-text in v0, registry TBD.",
+      "additionalProperties": true,
+      "properties": {
+        "exceptionId": {
+          "type": "string",
+          "description": "Exception identifier permitting a loosening override. OQ-6: free-text in v0, registry TBD."
+        }
+      }
+    },
+    "init": {
+      "type": "object",
+      "description": "v0 init answers, fixed and versioned in the repo.",
+      "required": ["stackQuestion", "teamSize", "versioned"],
+      "additionalProperties": true,
+      "properties": {
+        "stackQuestion": {
+          "type": "string",
+          "description": "Answer to init question 1 (stack selection)."
+        },
+        "teamSize": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Answer to init question 2 (team size)."
+        },
+        "versioned": {
+          "const": true,
+          "description": "Init result must be fixed and versioned in the repo. Always true in v0."
+        }
+      }
+    }
+  }
+}
