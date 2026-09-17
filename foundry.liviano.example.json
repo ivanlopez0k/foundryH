@@ -3,19 +3,35 @@
   "core": "gentle-ai@2.7.0",
   "packs": {
     "stack": "lightweight-generic@0.1.0",
+    "org": "org-default@0.1.0",
     "team": "team-4@0.1.0",
     "budget": "single-pr@0.1.0"
   },
   "stackDetails": {
+    "stack": ["lightweight", "generic"],
     "codegraph": "optional",
     "verification": ["npm test", "npm run lint"],
+    "verificationPolicy": { "failFast": false },
     "reviewFocus": ["readability", "reliability"],
+    "migrationCare": {
+      "requireMigrationReview": false,
+      "notes": "keep verification fast and lightweight"
+    },
     "notes": "keep verification fast and lightweight"
+  },
+  "orgDetails": {
+    "allowedLanguages": ["typescript", "javascript"],
+    "commitConvention": "conventional-commits",
+    "artifactLanguage": "en"
   },
   "teamDetails": {
     "size": 4,
     "mode": "single-writer",
     "strategy": "small-prs-to-main"
+  },
+  "budgetDetails": {
+    "strategy": "single-pr",
+    "tokenForecastRequired": false
   },
   "overrides": {},
   "init": { "stackQuestion": "lightweight-generic", "teamSize": 4, "versioned": true }
