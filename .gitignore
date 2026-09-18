@@ -14,3 +14,6 @@ node_modules/
 
 # Caches locales
 .opencode/.cache/
+
+# CodeGraph local index (T1 init, local-only, never committed)
+.codegraph/

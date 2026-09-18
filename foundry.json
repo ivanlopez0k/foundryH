@@ -16,8 +16,7 @@
     "migrationCare": {
       "requireMigrationReview": true,
       "notes": "extra care on migrations: human review required before apply"
-    },
-    "notes": "extra care on migrations"
+    }
   },
   "orgDetails": {
     "allowedLanguages": ["csharp", "typescript", "sql"],

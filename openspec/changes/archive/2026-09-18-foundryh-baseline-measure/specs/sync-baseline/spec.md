@@ -20,22 +20,22 @@ The T2 liviano row MUST be measured from one genuine docs-clarity edit on `PLANN
 - THEN every cell has one tag (`[measured]` or honest miss with reason)
 - AND `git branch` plus numstat confirm single-row scope and clean tree
 
-### Requirement: T1 Deferred Pending
+### Requirement: T1 ERP-Contract Candidate-A Row
 
-T1 MUST stay `pending` with no staged fill. The trigger MUST be the next genuine ERP-touching change (contract/spec) under `erp-dotnet-angular@0.1.0`. `.codegraph/` init with the gitignore decision MUST happen at T1, and index cost MUST count in P1/P2 per #29-C4. T1 MUST reuse the T2 window, pins, ledger, branch, and numstat discipline.
+T1 MUST be measured from one genuine ERP contract edit: remove legacy `stackDetails.notes` (`foundry.json:20`) with `migrationCare.notes` canonical intact and contract schema-valid. `.codegraph/` init with `.gitignore` decision MUST occur in-window at T1 with index cost in P1/P2 per #29-C4. Window MUST be acquire-to-settle only with pre-acquire reads excluded. Pins MUST be `gentle-ai@2.7.0` + `erp-dotnet-angular@0.1.0`, team-4 single-writer/single-PR/400-gate, ledger `dotnet test → ng test → ng lint` in order, never executed at root. Every P1–P6 cell MUST carry exactly one tag (`[measured]` or honest miss with reason); counters only, no totals, no SAP rows; D4 hold until hand-checks pass.
 
 #### Scenario: Staged T1 fill rejected
 
-- GIVEN no genuine ERP change has landed
+- GIVEN no genuine ERP contract edit has landed
 - WHEN a T1 fill is proposed from staged or synthetic edits
 - THEN the fill is rejected and T1 stays `pending`
 
-#### Scenario: Genuine ERP change triggers T1 collection
+#### Scenario: Candidate-A edit triggers T1 collection
 
-- GIVEN a genuine ERP-touching change on its own branch from a clean tree
-- WHEN T1 collection runs after `.codegraph/` init
-- THEN P1/P2 include index cost and every cell is `[measured]` or honest miss
-- AND branch plus numstat evidence confirm genuine scope
+- GIVEN genuine removal of `foundry.json:20` on its own branch from a clean tree with `.codegraph/` init in-window
+- WHEN T1 P1–P6 are collected with window, pins, and ledger discipline
+- THEN P1/P2 include index cost, canonical notes stay intact and schema-valid
+- AND every cell carries one tag with counters only, D4 hold respected
 
 ### Requirement: T3 Narrated-Only Control
 
