@@ -1,4 +1,4 @@
-# Informacion de gentle-ai
+# Información de gentle-ai
 
 Este documento describe como esta construido y configurado gentle-ai a partir de evidencia local verificada el 2026-09-12. Todo lo observado incluye el comando o la ruta que lo respalda. Lo no observado se marca explicitamente como por verificar.
 

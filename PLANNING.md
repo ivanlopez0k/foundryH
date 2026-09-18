@@ -1,4 +1,4 @@
-# Planificacion - FoundryH (harness personalizable 100% opencode, ex LibreCode)
+# Planificación - FoundryH (harness personalizable para opencode, antes LibreCode)
 
 Estado: vision v0 acordada 2026-09-16. Base modificable.
 
@@ -72,4 +72,4 @@ Ciclo base respetado: init -> explore -> propose -> research opcional -> spec+de
 - Detallar contenido exacto de stack pack ERP y liviano.
 - Definir formato de declaracion en repo (archivo de version de pack).
 - Disenar preguntas de roles y division por sub-stack para v1.
-- Medir tokens base para comparar v0 vs sin harness.
+- Medir la línea base de contadores proxy (P1–P6) para comparar v0 con y sin harness.
